@@ -1,0 +1,123 @@
+Title: Nozama Online
+
+Author: Oluwatimilehin Dayo-Kayode
+
+Purpose: Simulate a warehouse facility using two modes; round robin and 
+shortest time
+
+Classes:
+
+-wareHouse class: wareHouse.h, wareHouse.cpp
+-Orderqueue class: Orderqueue.h Orderqueue.cpp testOrderqueue.cpp
+-Packer class: Packer.h Packer.cpp testPacker.cpp
+-Retrieval class: Rertrieval.h Retrieval.cpp testRetrieval.cpp
+-string2int class: string2int.h string2int.cpp
+-Parser class: Parser.h, Parser.cpp, testParser.cpp
+-main: main.cpp
+-Order: Order.h
+-README
+
+                           *Orderqueue class*
+This class contains the functions required to create a queue(A sequence in this
+case) and interact with the queue such as enqueueing(adding orders to the queue)
+and dequeueing(removing completed orders from the queue). It also contains a 
+function used to read in a list of of orders and populates a queue with them.
+An expand function to expand the queue, an isEmpty function that checks whether 
+or not a queue is empty, a numOrder and currSize variable that keeps track of 
+the number of orders in a queue and the size of the queue respectively.
+This class also has a test file called testOrderqueue.cpp that tests its
+functions.
+
+                        *Warehouse Class*                       
+This class creates an instance of a queue to hold a list of orders read from a 
+file by calling on the Orderqueue class' functions. It also has an instance of a 
+Packer and Retrieval to send current orders to the packer and to process 
+received orders respectively. The warehouse also has a masterclock that makes 
+time conceptually possible and enables other classes to interact with orders in
+respect to their individual fetch and processing times. It has a function that 
+sends orders to the packer class depending on the method being used; round robin 
+vs fastest time by using two helper functions. 
+
+
+			   *Packer Class* 
+This class creates an instance of a queue that holds all currently processing 
+orders and keeps track of the number of orders currently in the packaging queue 
+after receiving them from the retrieval queue and monitors their processing time
+then dequeues them once they have been completely processed/packed. It also has 
+a tickPacker function that keeps track of how much time has elapsed once it is
+run. This class also has a test file called testPacker.cpp that tests its 
+functions.
+
+
+			   *Retrieval Class* 
+This class gets sent orders from the warehouse and acts as a placeholder by 
+holding all the orders in its queue until their individual fetch times have 
+elapsed and then sends them to the packer class. 
+
+			
+			        *Order.h* 
+This class creates the struct definition of Order that the whole program relies
+on. It is the definition of the orders that are passed around the whole program. 
+
+			     *string2int Class*
+This class converts strings to integers and is used when reading information
+about the program such as the number of packing units that the user passes
+into the terminal
+
+			        *Parser Class*
+This class contains two files; Parser.h and Parser.cpp that takes a file as a 
+parameter and initializes an initializes an instance of the Order class with
+the values in the file. It is used to open and read in from the file that the
+user passes as an argumentv in the command line.
+
+
+				*main Class*
+This class creates an instance of a wareHouse using its constructor and calls 
+wareHouses' chronoKinesis function that runs the whole program.
+
+
+			//General Implementation//
+			
+My implementationn for nozama online includes using a sequence as a queue 
+because after reading the specs, i realized that I would have to access the 
+queue a great number of times, so I decided on sequences as my data structure of
+choice due to how easy it is to access different nodes in it.
+
+My nozama online program will make use of three classes and a main function to 
+run all the classes. My proposed classes include a warehouse class, a retrieval
+class, an orderqueue class and a packer class along with the other classes 
+provided. The Orderqueue class is used to create queues in the form of sequences
+and all both the wareHouse and Retrieval class include an instance of an
+Orderqueue, while the Packer contains an array of Orderqueues that serve as its
+packing units. The warehouse's queue holds the orders that is read from the 
+file specified by the user, then sends all these orders to an Orderqueue in a 
+Retrieval queue declared in the wareHouse header file. This Orderqueue 
+holds each order until their fetch time is elapsed. Then as each 
+order's fetch time elapses, it sends them individually to the wareHouses' 
+instance of the Packer class which also has a queue to save these orders in.
+
+As far as implementing RoundRobin and Shortest Time goes in order to decide what
+packaging unit to send the order to, I made a function in 
+my wareHouse that took in an Order, the number of packaging units and the 
+current time, and with the help of some helper functions, decides what unit to
+send the order to, and then once their individual packing time elapses, calls 
+another helper function that prints out the order details in the format 
+specified before dequeueing them from the queue. I then call a function that 
+checks for the condition that any and every Orderqueue in the Packer and 
+Retrieval instances are both empty, and then once this condition is satisfied, 
+terminates the program.
+
+For implementing the concept of time, I have an infinite loop that serves as the
+master clock in my warehouse and pass the current time as parameters to 
+functions that require them to retrieve and pack.
+
+
+		     //Compiling and Running My Program//
+		     
+My program has a Makefile that compiles all the files used in my program by 
+typing the keyword 'make' in the command line. My makefile also has an
+executable called nozama that is used to run the program, and so running the
+program would be; './nozama file.txt 3 XXXXXXX'. The parameters run along
+with the executable are the name of the file containing the orders, the 
+number of packing units that the client wants to run the simulation with, and
+the mode that the simulation should be run with.

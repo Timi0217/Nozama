@@ -1,0 +1,8 @@
+<Order(3) arrival_timestamp = 10 fetch_duration = 1 pack_duration = 1 total_time = 2>
+<Order(1) arrival_timestamp = 30 fetch_duration = 1 pack_duration = 1 total_time = 2>
+<Order(7) arrival_timestamp = 51 fetch_duration = 1 pack_duration = 1 total_time = 2>
+<Order(12) arrival_timestamp = 54 fetch_duration = 1 pack_duration = 1 total_time = 2>
+min elapsed time 2 minutes
+max elapsed time 2 minutes
+mean elapsed time 2 minutes
+4 orders processed

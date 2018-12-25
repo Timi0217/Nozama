@@ -1,0 +1,3 @@
+Order 3 arrived at time 10
+fetch time 1 minute, pack time 1 minute
+
